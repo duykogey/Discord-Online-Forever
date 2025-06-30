@@ -1,11 +1,20 @@
 const Eris = require("eris");
-const keep_alive = require('./keep_alive.js')
+const keep_alive = require('./keep_alive.js');
 
-// Replace TOKEN with your bot account's token
 const bot = new Eris(process.env.token);
 
-bot.on("error", (err) => {
-  console.error(err); // or your preferred logger
+bot.on("ready", () => {
+  console.log("Bot is online as " + bot.user.username);
+  bot.editStatus("online", [
+    {
+      name: ".gg/rollbet", // <-- Custom status text
+      type: 4               // Type 4 = Custom Status
+    }
+  ]);
 });
 
-bot.connect(); // Get the bot to connect to Discord
+bot.on("error", (err) => {
+  console.error(err);
+});
+
+bot.connect();
